@@ -22,7 +22,7 @@
   html{scroll-behavior:smooth}
   body{background:var(--primary);color:var(--text);font-family:var(--font);overflow-x:hidden}
 
-  /* NAV */
+  
   nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
   .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
   .nav-logo{font-family:var(--mono);color:var(--accent);font-size:14px;font-weight:500}
@@ -30,10 +30,9 @@
   .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.05em;transition:color .2s;cursor:pointer}
   .nav-links a:hover{color:var(--accent)}
 
-  /* SECTIONS */
   section{max-width:1100px;margin:0 auto;padding:80px 2rem}
 
-  /* HERO */
+
   .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:120px}
   .hero-content{position:relative;z-index:1}
   .hero-tag{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards}
@@ -51,15 +50,14 @@
   .scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollLine 2s ease-in-out infinite}
   @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-  /* FLOATING DOTS BG */
+
   canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.4;pointer-events:none}
 
-  /* SECTION HEADER */
+
   .section-label{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem}
   .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:3rem;position:relative;display:inline-block}
   .section-title::after{content:'';position:absolute;bottom:-8px;left:0;width:60px;height:3px;background:var(--accent);border-radius:2px}
 
-  /* ABOUT */
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
   .about-photo{position:relative}
   .photo-frame{width:100%;max-width:320px;aspect-ratio:3/4;border-radius:20px;overflow:hidden;border:2px solid rgba(0,212,170,0.3);position:relative;box-shadow:0 0 40px rgba(0,212,170,0.15)}
@@ -73,7 +71,7 @@
   .info-value{font-size:14px;font-weight:500}
   .info-link{color:var(--accent);text-decoration:none;font-size:13px;word-break:break-all}
 
-  /* SKILLS */
+ 
   .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
   .skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
   .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .4s}
@@ -84,7 +82,6 @@
   .skill-tag{font-size:12px;background:rgba(0,212,170,.08);color:var(--accent);border:1px solid rgba(0,212,170,.2);border-radius:6px;padding:4px 10px;font-family:var(--mono);font-weight:500;transition:all .2s}
   .skill-tag:hover{background:rgba(0,212,170,.15)}
 
-  /* EDUCATION */
   .timeline{position:relative;padding-left:2rem}
   .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent)}
   .timeline-item{position:relative;margin-bottom:2.5rem;opacity:0;transform:translateX(-20px);transition:all .6s}
@@ -94,7 +91,7 @@
   .timeline-degree{font-size:16px;font-weight:600;margin-bottom:.25rem}
   .timeline-school{font-size:14px;color:var(--muted)}
 
-  /* PROJECTS */
+
   .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
   .project-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .3s;cursor:pointer}
   .project-card:hover{border-color:var(--accent2);transform:translateY(-4px);box-shadow:0 20px 40px rgba(124,58,237,.15)}
@@ -107,14 +104,13 @@
   .project-stack{display:flex;flex-wrap:wrap;gap:.4rem}
   .stack-tag{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-family:var(--mono)}
 
-  /* LANGUAGES */
   .lang-grid{display:flex;gap:1rem;flex-wrap:wrap}
   .lang-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.5rem;text-align:center;min-width:120px;transition:all .3s}
   .lang-card:hover{border-color:var(--accent);transform:scale(1.05)}
   .lang-flag{font-size:2rem;margin-bottom:.5rem}
   .lang-name{font-weight:600;font-size:14px}
 
-  /* REFERENCES */
+ 
   .refs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
   .ref-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
   .ref-avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#000;margin-bottom:1rem}
@@ -122,7 +118,7 @@
   .ref-role{font-size:12px;color:var(--muted);margin-bottom:1rem;line-height:1.6}
   .ref-contact{font-size:12px;color:var(--accent);font-family:var(--mono);margin-bottom:4px}
 
-  /* CONTACT */
+ 
   .contact-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 2rem;text-align:center}
   .contact-inner{max-width:600px;margin:0 auto}
   .contact-email{font-size:1.2rem;color:var(--accent);font-family:var(--mono);margin:2rem 0}
@@ -131,7 +127,7 @@
   .social-link:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
   footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);font-family:var(--mono)}
 
-  /* DOWNLOAD CV BTN */
+ 
   .download-cv{position:fixed;bottom:2rem;right:2rem;background:var(--accent);color:#000;padding:12px 20px;border-radius:50px;font-weight:700;font-size:13px;cursor:pointer;border:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,212,170,.4);transition:all .3s;z-index:99;text-decoration:none;animation:pulse 2s infinite}
   .download-cv:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,212,170,.6)}
 
@@ -151,7 +147,7 @@
 
 <canvas id="bg"></canvas>
 
-<!-- NAV -->
+
 <nav>
   <div class="nav-inner">
     <span class="nav-logo">TN.portfolio</span>
@@ -165,7 +161,7 @@
   </div>
 </nav>
 
-<!-- HERO -->
+
 <div style="position:relative;z-index:1">
 <section class="hero" style="max-width:100%;padding-left:4rem;padding-right:4rem">
   <div class="hero-content">
@@ -185,7 +181,7 @@
   </div>
 </section>
 
-<!-- ABOUT -->
+
 <section id="about">
   <p class="section-label">01 / About</p>
   <h2 class="section-title">Who Am I</h2>
@@ -243,7 +239,7 @@
   </div>
 </section>
 
-<!-- SKILLS -->
+
 <section id="skills">
   <p class="section-label">02 / Skills</p>
   <h2 class="section-title">Tech Stack</h2>
@@ -299,7 +295,7 @@
   </div>
 </section>
 
-<!-- EDUCATION -->
+
 <section id="education">
   <p class="section-label">03 / Education</p>
   <h2 class="section-title">Academic Background</h2>
@@ -325,7 +321,7 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
+
 <section id="projects">
   <p class="section-label">04 / Projects</p>
   <h2 class="section-title">Key Projects</h2>
@@ -389,7 +385,7 @@
   </div>
 </section>
 
-<!-- LANGUAGES -->
+
 <section id="languages">
   <p class="section-label">05 / Languages</p>
   <h2 class="section-title">Languages I Speak</h2>
@@ -401,8 +397,6 @@
 </section>
 
 
-
-<!-- CONTACT -->
 <div class="contact-section" id="contact">
   <div class="contact-inner">
     <p class="section-label" style="text-align:center">07 / Contact</p>
@@ -422,11 +416,11 @@
 </footer>
 </div>
 
-<!-- DOWNLOAD CV BUTTON -->
+
 <a class="download-cv" href="cv (2).pdf" >⬇ Download CV</a>
 
 <script>
-  // Animated particle background
+ 
   const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
   let W, H, particles = [];
@@ -477,13 +471,13 @@
   }
   drawBg();
 
-  // Timeline scroll animation
+ 
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: .1 });
   document.querySelectorAll('.timeline-item').forEach(el => obs.observe(el));
 
-  // Download CV as text file
+  
   function downloadCV(e) {
     e.preventDefault();
     const content = `THEEKSHANA NIPUN

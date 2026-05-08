@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theekshana Nipun - Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --primary:#0a0a0a;
+    --accent:#00d4aa;
+    --accent2:#7c3aed;
+    --surface:#111111;
+    --card:#1a1a1a;
+    --border:#2a2a2a;
+    --text:#f0f0f0;
+    --muted:#888;
+    --font:'Space Grotesk',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--primary);color:var(--text);font-family:var(--font);overflow-x:hidden}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
+  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+  .nav-logo{font-family:var(--mono);color:var(--accent);font-size:14px;font-weight:500}
+  .nav-links{display:flex;gap:2rem}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.05em;transition:color .2s;cursor:pointer}
+  .nav-links a:hover{color:var(--accent)}
+
+  /* SECTIONS */
+  section{max-width:1100px;margin:0 auto;padding:80px 2rem}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:120px}
+  .hero-content{position:relative;z-index:1}
+  .hero-tag{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards}
+  .hero-name{font-size:clamp(3rem,8vw,7rem);font-weight:700;line-height:1;margin-bottom:1rem;opacity:0;animation:fadeUp .8s .4s forwards}
+  .hero-name span{color:var(--accent)}
+  .hero-title{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--muted);font-weight:300;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .6s forwards}
+  .hero-desc{max-width:600px;font-size:15px;line-height:1.8;color:#aaa;margin-bottom:3rem;opacity:0;animation:fadeUp .8s .8s forwards}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1s forwards}
+  .btn-primary{background:var(--accent);color:#000;padding:12px 28px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary:hover{background:#00ffcc;transform:translateY(-2px)}
+  .btn-outline{background:transparent;color:var(--text);padding:12px 28px;border-radius:8px;font-weight:500;font-size:14px;text-decoration:none;cursor:pointer;border:1px solid var(--border);transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .hero-scroll{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s 1.5s forwards;cursor:pointer}
+  .hero-scroll span{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollLine 2s ease-in-out infinite}
+  @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* FLOATING DOTS BG */
+  canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.4;pointer-events:none}
+
+  /* SECTION HEADER */
+  .section-label{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem}
+  .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:3rem;position:relative;display:inline-block}
+  .section-title::after{content:'';position:absolute;bottom:-8px;left:0;width:60px;height:3px;background:var(--accent);border-radius:2px}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .about-photo{position:relative}
+  .photo-frame{width:100%;max-width:320px;aspect-ratio:3/4;border-radius:20px;overflow:hidden;border:2px solid rgba(0,212,170,0.3);position:relative;box-shadow:0 0 40px rgba(0,212,170,0.15)}
+  .photo-frame img{width:100%;height:100%;object-fit:cover}
+  .photo-glow{position:absolute;inset:-3px;border-radius:23px;background:linear-gradient(135deg,var(--accent),var(--accent2));z-index:-1;opacity:.5;animation:glowPulse 3s ease-in-out infinite}
+  .photo-placeholder{width:100%;height:100%;background:var(--card);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;color:var(--muted);font-size:14px}
+  .photo-initials{font-size:4rem;font-weight:700;color:var(--accent)}
+  .info-item{display:flex;align-items:flex-start;gap:1rem;padding:1rem;background:var(--card);border-radius:8px;border:1px solid var(--border);margin-bottom:.75rem}
+  .info-icon{color:var(--accent);font-size:18px;margin-top:2px}
+  .info-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;font-family:var(--mono)}
+  .info-value{font-size:14px;font-weight:500}
+  .info-link{color:var(--accent);text-decoration:none;font-size:13px;word-break:break-all}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
+  .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+  .skill-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,212,170,.1)}
+  .skill-card:hover::before{transform:scaleX(1)}
+  .skill-cat{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+  .skill-tag{font-size:12px;background:rgba(0,212,170,.08);color:var(--accent);border:1px solid rgba(0,212,170,.2);border-radius:6px;padding:4px 10px;font-family:var(--mono);font-weight:500;transition:all .2s}
+  .skill-tag:hover{background:rgba(0,212,170,.15)}
+
+  /* EDUCATION */
+  .timeline{position:relative;padding-left:2rem}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent)}
+  .timeline-item{position:relative;margin-bottom:2.5rem;opacity:0;transform:translateX(-20px);transition:all .6s}
+  .timeline-item.visible{opacity:1;transform:translateX(0)}
+  .timeline-dot{position:absolute;left:-2.4rem;top:.3rem;width:14px;height:14px;border-radius:50%;background:var(--accent);border:2px solid var(--primary);box-shadow:0 0 0 4px rgba(0,212,170,.2)}
+  .timeline-year{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em;margin-bottom:.25rem}
+  .timeline-degree{font-size:16px;font-weight:600;margin-bottom:.25rem}
+  .timeline-school{font-size:14px;color:var(--muted)}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+  .project-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .3s;cursor:pointer}
+  .project-card:hover{border-color:var(--accent2);transform:translateY(-4px);box-shadow:0 20px 40px rgba(124,58,237,.15)}
+  .project-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem}
+  .project-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(0,212,170,.15),rgba(124,58,237,.15));display:flex;align-items:center;justify-content:center;font-size:20px}
+  .proj-link{color:var(--muted);text-decoration:none;font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;transition:all .2s;font-family:var(--mono)}
+  .proj-link:hover{color:var(--accent);border-color:var(--accent)}
+  .project-title{font-size:16px;font-weight:600;margin-bottom:.5rem}
+  .project-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+  .project-stack{display:flex;flex-wrap:wrap;gap:.4rem}
+  .stack-tag{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-family:var(--mono)}
+
+  /* LANGUAGES */
+  .lang-grid{display:flex;gap:1rem;flex-wrap:wrap}
+  .lang-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.5rem;text-align:center;min-width:120px;transition:all .3s}
+  .lang-card:hover{border-color:var(--accent);transform:scale(1.05)}
+  .lang-flag{font-size:2rem;margin-bottom:.5rem}
+  .lang-name{font-weight:600;font-size:14px}
+
+  /* REFERENCES */
+  .refs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+  .ref-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+  .ref-avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#000;margin-bottom:1rem}
+  .ref-name{font-weight:600;margin-bottom:.25rem}
+  .ref-role{font-size:12px;color:var(--muted);margin-bottom:1rem;line-height:1.6}
+  .ref-contact{font-size:12px;color:var(--accent);font-family:var(--mono);margin-bottom:4px}
+
+  /* CONTACT */
+  .contact-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 2rem;text-align:center}
+  .contact-inner{max-width:600px;margin:0 auto}
+  .contact-email{font-size:1.2rem;color:var(--accent);font-family:var(--mono);margin:2rem 0}
+  .social-links{display:flex;justify-content:center;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+  .social-link{display:flex;align-items:center;gap:.5rem;color:var(--muted);text-decoration:none;font-size:13px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s;font-family:var(--mono)}
+  .social-link:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+  footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);font-family:var(--mono)}
+
+  /* DOWNLOAD CV BTN */
+  .download-cv{position:fixed;bottom:2rem;right:2rem;background:var(--accent);color:#000;padding:12px 20px;border-radius:50px;font-weight:700;font-size:13px;cursor:pointer;border:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,212,170,.4);transition:all .3s;z-index:99;text-decoration:none;animation:pulse 2s infinite}
+  .download-cv:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,212,170,.6)}
+
+  @keyframes pulse{0%,100%{box-shadow:0 8px 32px rgba(0,212,170,.4)}50%{box-shadow:0 8px 32px rgba(0,212,170,.8),0 0 0 8px rgba(0,212,170,.1)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}} @keyframes glowPulse{0%,100%{opacity:.4;filter:blur(4px)}50%{opacity:.7;filter:blur(6px)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+  @media(max-width:768px){
+    .about-grid{grid-template-columns:1fr}
+    .photo-frame{max-width:220px;margin:0 auto}
+    nav .nav-links{display:none}
+    .hero{padding-left:1.5rem;padding-right:1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">TN.portfolio</span>
+    <div class="nav-links">
+      <a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a>
+      <a onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'})">Skills</a>
+      <a onclick="document.getElementById('education').scrollIntoView({behavior:'smooth'})">Education</a>
+      <a onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">Projects</a>
+      <a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div style="position:relative;z-index:1">
+<section class="hero" style="max-width:100%;padding-left:4rem;padding-right:4rem">
+  <div class="hero-content">
+    <p class="hero-tag">🇱🇰 IT Undergraduate · Sri Lanka</p>
+    <h1 class="hero-name">Theekshana<br><span>Nipun</span></h1>
+    <p class="hero-title">Full-Stack Developer & Software Engineering Student</p>
+    <p class="hero-desc">H.M.T.N. Jayawardana — passionate about technology and software development. Currently pursuing a Higher Diploma in Software Engineering at ICBT Campus, Cardiff Metropolitan University, UK.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">⚡ View Projects</a>
+      <a class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">📬 Contact Me</a>
+      <a class="btn-outline" href="mailto:Theekshananipun237@gmail.com">✉ Email</a>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">01 / About</p>
+  <h2 class="section-title">Who Am I</h2>
+  <div class="about-grid">
+    <div class="about-photo">
+      <div style="position:relative;display:inline-block">
+        <div class="photo-glow"></div>
+        <div class="photo-frame">
+<div style="position:relative;width:100%;height:100%">
+          <img src="Gemini_Generated_Image_f5c4yvf5c4yvf5c4.png" alt="">
+        </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:15px;line-height:1.9;color:#aaa;margin-bottom:2rem">
+        I am an enthusiastic IT undergraduate passionate about technology and software development, with growing skills in programming, web development, and database management. I enjoy learning new technologies, solving complex problems, and working collaboratively to create efficient and user-friendly software solutions.
+      </p>
+      <div class="info-item">
+        <span class="info-icon">📍</span>
+        <div>
+          <div class="info-label">Location</div>
+          <div class="info-value">Kathupotha Road, Kadahapola, Horombawa</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">📱</span>
+        <div>
+          <div class="info-label">Phone</div>
+          <div class="info-value">076-8829084</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">✉️</span>
+        <div>
+          <div class="info-label">Email</div>
+          <a class="info-link" href="mailto:Theekshananipun237@gmail.com">Theekshananipun237@gmail.com</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">💼</span>
+        <div>
+          <div class="info-label">LinkedIn</div>
+          <a class="info-link" href="https://www.linkedin.com/in/theekshana-nipun-092690297/" target="_blank">linkedin.com/in/theekshana-nipun</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">🐙</span>
+        <div>
+          <div class="info-label">GitHub</div>
+          <a class="info-link" href="https://github.com/Theekshana-hub" target="_blank">github.com/Theekshana-hub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">02 / Skills</p>
+  <h2 class="section-title">Tech Stack</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-cat">🌐 Web Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Bootstrap</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express.js</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">🗃️ Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Firebase</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">💻 Programming</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">C#</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">Dart</span>
+        <span class="skill-tag">R</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">🛠️ Tools & Platforms</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">R-Studio</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">🤝 Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Team Collaboration</span>
+        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">Fast Learner</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label">03 / Education</p>
+  <h2 class="section-title">Academic Background</h2>
+  <div class="timeline">
+    <div class="timeline-item" id="edu1">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2025 – Present</div>
+      <div class="timeline-degree">Higher Diploma in Computing and Software Engineering</div>
+      <div class="timeline-school">Cardiff Metropolitan University · ICBT Campus</div>
+    </div>
+    <div class="timeline-item" id="edu2">
+      <div class="timeline-dot" style="background:var(--accent2)"></div>
+      <div class="timeline-year">2024</div>
+      <div class="timeline-degree">G.C.E. Advanced Level (A/L)</div>
+      <div class="timeline-school">Mayurapada Central College, Narammala</div>
+    </div>
+    <div class="timeline-item" id="edu3">
+      <div class="timeline-dot" style="background:var(--muted)"></div>
+      <div class="timeline-year">2019</div>
+      <div class="timeline-degree">G.C.E. Ordinary Level (O/L)</div>
+      <div class="timeline-school">Mayurapada Central College, Narammala</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">04 / Projects</p>
+  <h2 class="section-title">Key Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">📱</div>
+      </div>
+      <div class="project-title">Online Booking Mobile App</div>
+      <div class="project-desc">Developed a mobile app featuring room booking, activities booking, view history, and an integrated admin panel for complete management.</div>
+      <div class="project-stack">
+        <span class="stack-tag">Java</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">XML</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">🎓</div>
+      </div>
+      <div class="project-title">SkillPro Institute Website</div>
+      <div class="project-desc">Designed and implemented a complete full-stack web solution for the SkillPro Institute with all necessary features.</div>
+      <div class="project-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Bootstrap</span>
+        <span class="stack-tag">MySQL</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">💅</div>
+        <div><a class="proj-link" href="https://salon23.wuaze.com/?i=1" target="_blank">↗ Live Demo</a></div>
+      </div>
+      <div class="project-title">Bella Beauty Salon</div>
+      <div class="project-desc">Full-stack web solution with an online booking system and automated SMS notifications sent to customers' phone numbers.</div>
+      <div class="project-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Bootstrap</span>
+        <span class="stack-tag">MySQL</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">👁️</div>
+        <div><a class="proj-link" href="https://icare.42web.io/" target="_blank">↗ Live Demo</a></div>
+      </div>
+      <div class="project-title">iCare Eye Care System</div>
+      <div class="project-desc">Successfully delivered a complete full-stack web application for eye care services with comprehensive patient management.</div>
+      <div class="project-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Bootstrap</span>
+        <span class="stack-tag">MySQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages">
+  <p class="section-label">05 / Languages</p>
+  <h2 class="section-title">Languages I Speak</h2>
+  <div class="lang-grid">
+    <div class="lang-card"><div class="lang-flag">🇬🇧</div><div class="lang-name">English</div></div>
+    <div class="lang-card"><div class="lang-flag">🇱🇰</div><div class="lang-name">Sinhala</div></div>
+    <div class="lang-card"><div class="lang-flag">🇮🇳</div><div class="lang-name">Tamil</div></div>
+  </div>
+</section>
+
+
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <p class="section-label" style="text-align:center">07 / Contact</p>
+    <h2 style="font-size:2.5rem;font-weight:700;margin-bottom:1rem">Let's Connect</h2>
+    <p style="color:#aaa;font-size:15px">I'm open to internship opportunities, collaborations, and exciting projects.</p>
+    <div class="contact-email">Theekshananipun237@gmail.com</div>
+    <a class="btn-primary" href="mailto:Theekshananipun237@gmail.com" style="display:inline-flex;margin-bottom:2rem">✉ Send Email</a>
+    <div class="social-links">
+      <a class="social-link" href="https://www.linkedin.com/in/theekshana-nipun-092690297/" target="_blank">💼 LinkedIn</a>
+      <a class="social-link" href="https://github.com/Theekshana-hub" target="_blank">🐙 GitHub</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Theekshana Nipun · Built with passion 💚</p>
+</footer>
+</div>
+
+<!-- DOWNLOAD CV BUTTON -->
+<a class="download-cv" href="cv (2).pdf" >⬇ Download CV</a>
+
+<script>
+  // Animated particle background
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - .5) * .3,
+      vy: (Math.random() - .5) * .3,
+      r: Math.random() * 2 + .5,
+      o: Math.random() * .5 + .1
+    });
+  }
+
+  function drawBg() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,212,170,${p.o})`;
+      ctx.fill();
+    });
+    particles.forEach((p, i) => {
+      particles.slice(i + 1).forEach(q => {
+        const d = Math.hypot(p.x - q.x, p.y - q.y);
+        if (d < 120) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = `rgba(0,212,170,${.08 * (1 - d / 120)})`;
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      });
+    });
+    requestAnimationFrame(drawBg);
+  }
+  drawBg();
+
+  // Timeline scroll animation
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: .1 });
+  document.querySelectorAll('.timeline-item').forEach(el => obs.observe(el));
+
+  // Download CV as text file
+  function downloadCV(e) {
+    e.preventDefault();
+    const content = `THEEKSHANA NIPUN
+IT Undergraduate | Full-Stack Developer
+=====================================
+
+CONTACT
+-------
+Phone: 076-8829084
+Email: Theekshananipun237@gmail.com
+Address: Kathupotha Road, Kadahapola, Horombawa
+LinkedIn: https://www.linkedin.com/in/theekshana-nipun-092690297/
+GitHub: https://github.com/Theekshana-hub
+
+ABOUT ME
+--------
+I am H.M.T.N. Jayawardana, an enthusiastic IT undergraduate currently
+pursuing a Higher Diploma in Software Engineering at ICBT Campus, offered
+in collaboration with Cardiff Metropolitan University, UK. I am passionate
+about technology and software development, with growing skills in
+programming, web development, and database management.
+
+EDUCATION
+---------
+2025-Present | Higher Diploma in Computing and Software Engineering
+              Cardiff Metropolitan University · ICBT Campus
+
+2024         | G.C.E. Advanced Level (A/L)
+              Mayurapada Central College, Narammala
+
+2019         | G.C.E. Ordinary Level (O/L)
+              Mayurapada Central College, Narammala
+
+SKILLS
+------
+Web Development : HTML, CSS, JavaScript, Bootstrap, Node.js, Express.js
+Databases       : MongoDB, MySQL, Firebase
+Programming     : Java, C++, C#, JavaScript, PHP, Dart, R
+Tools           : Git/GitHub, Figma, R-Studio
+
+PROJECTS
+--------
+1. Online Booking Mobile App
+   - Room booking, activities booking, history & admin panel
+   - Tech: Java, MySQL, XML
+
+2. SkillPro Institute Website
+   - Full-stack web solution for education institute
+   - Tech: HTML, CSS, JavaScript, Bootstrap, MySQL
+
+3. Bella Beauty Salon
+   - Online booking with automated SMS notifications
+   - URL: https://salon23.wuaze.com/?i=1
+   - Tech: HTML, CSS, JavaScript, Bootstrap, MySQL
+
+4. iCare Eye Care System
+   - Full-stack web application for eye care services
+   - URL: https://icare.42web.io/
+   - Tech: HTML, CSS, JavaScript, Bootstrap, MySQL
+
+LANGUAGES
+---------
+English | Sinhala | Tamil
+
+REFERENCES
+----------
+Mr. K.P.T.N. Bandara
+Visiting Lecturer, Faculty of IT, ICBT Campus - Kurunegala
+Phone: 0765748125 | Email: tharindubandara@hotmail.com
+
+Ms. W.G.C.W. Kulathunga
+Lecturer Grade 1, Faculty of IT, ICBT Campus - Kurunegala
+Phone: 0710348025 | Email: chathuriK@icbtcampus.edu.lk
+`;
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Theekshana_Nipun_CV.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>
